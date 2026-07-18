@@ -1,0 +1,6 @@
+{
+  "name": "Laravel POS Frontend",
+  "description": "React + TypeScript Point-of-Sale frontend integrated with Laravel backend",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
