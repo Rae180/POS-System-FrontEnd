@@ -39,7 +39,6 @@ export const Shifts: React.FC = () => {
       const response = await api.get('/shifts');
       return response.data?.data || [];
     },
-    enabled: isAdmin,
   });
 
   // Open Shift mutation
@@ -344,7 +343,6 @@ export const Shifts: React.FC = () => {
       )}
 
       {/* 2. Shifts Historical Logs */}
-      {isAdmin && (
       <div className="space-y-4">
         <h3 className="text-lg font-bold text-gray-900 dark:text-[#EDEDEC] flex items-center gap-2">
           <Clipboard className="w-5 h-5 text-gray-400" />
@@ -440,7 +438,6 @@ export const Shifts: React.FC = () => {
           </div>
         )}
       </div>
-      )}
     </div>
   );
 };

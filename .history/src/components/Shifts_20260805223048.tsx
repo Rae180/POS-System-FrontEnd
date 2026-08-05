@@ -440,7 +440,6 @@ export const Shifts: React.FC = () => {
           </div>
         )}
       </div>
-      )}
     </div>
   );
 };
