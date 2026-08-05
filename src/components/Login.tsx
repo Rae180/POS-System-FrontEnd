@@ -16,7 +16,6 @@ export const Login: React.FC = () => {
   const location = useLocation();
   const authStore = useAuthStore();
 
-  // Redirect path after login
   const from = (location.state as any)?.from?.pathname || '/';
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -31,7 +30,7 @@ export const Login: React.FC = () => {
 
     try {
       const response = await api.post('/login', { email, password });
-      
+
       if (response.data?.success && response.data?.token && response.data?.user) {
         authStore.setAuth(response.data.token, response.data.user);
         navigate(from, { replace: true });
@@ -53,23 +52,27 @@ export const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#F8F9FA] dark:bg-[#0a0a0a] p-6 text-[#1A1A1A] dark:text-[#EDEDEC]" id="login-screen">
+    <div className="min-h-screen flex items-center justify-center bg-[#111315] p-6" id="login-screen">
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
-        className="max-w-md w-full bg-white dark:bg-[#161615] rounded-xl shadow-lg border border-gray-200 dark:border-[#3E3E3A] overflow-hidden"
+        className="max-w-md w-full bg-[#1B1E20] rounded-2xl border border-[#2E3234] overflow-hidden shadow-2xl"
       >
+        <div className="flex items-center gap-2 px-6 py-4 border-b border-[#2E3234]">
+          <span className="led-pulse inline-flex h-2.5 w-2.5 rounded-full bg-[#E8A33D]"></span>
+          <span className="font-['JetBrains_Mono'] text-[11px] tracking-[0.15em] text-[#8B8F91] uppercase">
+            POS Terminal
+          </span>
+        </div>
+
         <div className="p-8">
-          <div className="text-center mb-8">
-            <div className="w-12 h-12 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-indigo-100 dark:shadow-none italic mx-auto mb-4">
-              P
-            </div>
-            <h1 className="text-3xl font-sans font-medium tracking-tight text-gray-900 dark:text-[#EDEDEC] mb-2">
-              Laravel POS
+          <div className="mb-7">
+            <h1 className="text-2xl font-medium tracking-tight text-[#F2EFE6] mb-1.5">
+              Sign in
             </h1>
-            <p className="text-sm text-gray-600 dark:text-[#A1A09A]">
-              Sign in to manage your Point of Sale system
+            <p className="font-['JetBrains_Mono'] text-[12px] text-[#8B8F91]">
+              <span aria-hidden="true">&gt;</span> awaiting credentials<span className="cursor-blink">_</span>
             </p>
           </div>
 
@@ -77,7 +80,7 @@ export const Login: React.FC = () => {
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="mb-6 p-4 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-lg flex items-start gap-3 text-sm text-red-600 dark:text-red-400"
+              className="mb-6 p-4 bg-[#2A1917] border border-[#4A2B25] rounded-lg flex items-start gap-3 text-sm text-[#E9877A]"
               id="login-error"
             >
               <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
@@ -85,21 +88,21 @@ export const Login: React.FC = () => {
             </motion.div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-[#EDEDEC] mb-1.5">
-                Email Address
+              <label className="block text-xs font-medium text-[#8B8F91] mb-1.5 uppercase tracking-wide">
+                Email address
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400 dark:text-gray-500">
-                  <Mail className="w-5 h-5" />
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#5F6365]">
+                  <Mail className="w-4 h-4" />
                 </div>
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="cashier@gmail.com or admin@gmail.com"
-                  className="block w-full pl-11 pr-4 py-2.5 bg-gray-50 dark:bg-[#1b1b18] border border-gray-200 dark:border-[#3E3E3A] rounded-lg text-gray-900 dark:text-[#EDEDEC] text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+                  className="block w-full pl-10 pr-4 py-2.5 bg-[#111315] border border-[#2E3234] rounded-lg text-[#F2EFE6] text-sm placeholder:text-[#5F6365] focus:ring-2 focus:ring-[#E8A33D]/60 focus:border-[#E8A33D]/60 outline-none transition"
                   required
                   id="email-input"
                   autoComplete="username"
@@ -108,19 +111,19 @@ export const Login: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-[#EDEDEC] mb-1.5">
+              <label className="block text-xs font-medium text-[#8B8F91] mb-1.5 uppercase tracking-wide">
                 Password
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400 dark:text-gray-500">
-                  <Lock className="w-5 h-5" />
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#5F6365]">
+                  <Lock className="w-4 h-4" />
                 </div>
                 <input
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="block w-full pl-11 pr-11 py-2.5 bg-gray-50 dark:bg-[#1b1b18] border border-gray-200 dark:border-[#3E3E3A] rounded-lg text-gray-900 dark:text-[#EDEDEC] text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+                  className="block w-full pl-10 pr-11 py-2.5 bg-[#111315] border border-[#2E3234] rounded-lg text-[#F2EFE6] text-sm placeholder:text-[#5F6365] focus:ring-2 focus:ring-[#E8A33D]/60 focus:border-[#E8A33D]/60 outline-none transition"
                   required
                   id="password-input"
                   autoComplete="current-password"
@@ -128,10 +131,11 @@ export const Login: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-[#EDEDEC]"
+                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-[#5F6365] hover:text-[#8B8F91]"
                   id="toggle-password-btn"
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
                 >
-                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
             </div>
@@ -139,21 +143,21 @@ export const Login: React.FC = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full inline-flex items-center justify-center px-5 py-3 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-lg transition shadow-lg shadow-indigo-100 dark:shadow-none disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              className="w-full inline-flex items-center justify-center px-5 py-3 bg-[#E8A33D] hover:bg-[#D6952F] text-[#171008] text-sm font-semibold rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               id="submit-login-btn"
             >
               {isSubmitting ? (
-                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                <div className="w-5 h-5 border-2 border-[#171008] border-t-transparent rounded-full animate-spin"></div>
               ) : (
-                'Sign In'
+                'Sign in'
               )}
             </button>
           </form>
         </div>
-        
-        <div className="px-8 py-4 bg-gray-50 dark:bg-[#1b1b18] border-t border-gray-100 dark:border-[#3E3E3A] flex justify-between text-xs text-gray-500 dark:text-[#A1A09A]">
-          <span>Cashier: cashier@gmail.com</span>
-          <span>Admin: admin@gmail.com</span>
+
+        <div className="border-t border-dashed border-[#2E3234] px-8 py-4 flex justify-between font-['JetBrains_Mono'] text-[10px] text-[#5F6365] uppercase tracking-wide">
+          <span>cashier: cashier@gmail.com</span>
+          <span>admin: admin@gmail.com</span>
         </div>
       </motion.div>
     </div>

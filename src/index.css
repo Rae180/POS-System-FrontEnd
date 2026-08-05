@@ -1,1 +1,14 @@
 @import "tailwindcss";
+
+@keyframes led-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+@keyframes cursor-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .led-pulse { animation: led-pulse 2.2s ease-in-out infinite; }
+  .cursor-blink { animation: cursor-blink 1s step-end infinite; }
+}
