@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { useAuthStore } from '../store/auth';
+import { Staff } from './Staff';   // add to imports
 import api from '../lib/axios';
 import {
   LogOut,
@@ -46,7 +47,7 @@ const isToday = (dateStr: string) => {
 export const Dashboard: React.FC = () => {
   const { user, clearAuth } = useAuthStore();
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'checkout' | 'orders' | 'customers' | 'shifts' | 'products' | 'suppliers' | 'purchases' | 'settings'>('dashboard');
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'checkout' | 'orders' | 'customers' | 'shifts' | 'products' | 'suppliers' | 'purchases' | 'staff' | 'settings'>('dashboard');
 
   const userRoles = user?.roles?.map((r) => r.name) || [];
   const isAdmin = userRoles.some(role => role.toLowerCase() === 'admin');
@@ -139,6 +140,9 @@ export const Dashboard: React.FC = () => {
       case 'purchases':
         if (!isAdmin) return <div className="p-8 text-red-500 font-bold">Access Denied.</div>;
         return <Purchases />;
+      case 'staff':
+        if (!isAdmin) return <div className="p-8 text-red-500 font-bold">Access Denied.</div>;
+        return <Staff />;
       case 'settings':
         if (!isAdmin) return <div className="p-8 text-red-500 font-bold">Access Denied.</div>;
         return <Settings />;
@@ -356,6 +360,11 @@ export const Dashboard: React.FC = () => {
                 <button onClick={() => setActiveTab('purchases')} className={linkClass('purchases')} id="nav-purchases">
                   <ShoppingBag className="w-5 h-5 text-current" />
                   <span>Purchasing / Stock</span>
+                </button>
+
+                <button onClick={() => setActiveTab('staff')} className={linkClass('staff')} id="nav-staff">
+                  <Users className="w-5 h-5 text-current" />
+                  <span>Staff Accounts</span>
                 </button>
 
                 <button onClick={() => setActiveTab('settings')} className={linkClass('settings')} id="nav-settings">
